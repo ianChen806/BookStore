@@ -7,6 +7,6 @@ obj/
 *.suo
 
 **/app.db
-**/app.db-shm
-**/app.db-wal
+*.db-shm
+*.db-wal
 **/logs/
