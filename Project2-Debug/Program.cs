@@ -21,7 +21,6 @@ try
     builder.Services.AddSwaggerGen();
     builder.Services.AddDbContext<BookstoreDbContext>(options =>
         options.UseSqlite(builder.Configuration.GetConnectionString("Default")));
-    // handler 需注入 scoped DbContext,故 Mediator lifetime 設 Scoped(預設 Singleton 會 captive dependency)
     builder.Services.AddMediator(options => options.ServiceLifetime = ServiceLifetime.Scoped);
 
     var app = builder.Build();
