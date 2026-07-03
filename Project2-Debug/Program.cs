@@ -17,7 +17,8 @@ try
     builder.Host.UseNLog();
 
     builder.Services.AddControllers();
-    builder.Services.AddOpenApi();
+    builder.Services.AddEndpointsApiExplorer();
+    builder.Services.AddSwaggerGen();
     builder.Services.AddDbContext<BookstoreDbContext>(options =>
         options.UseSqlite(builder.Configuration.GetConnectionString("Default")));
     // handler 需注入 scoped DbContext,故 Mediator lifetime 設 Scoped(預設 Singleton 會 captive dependency)
@@ -27,7 +28,7 @@ try
 
     app.UseMiddleware<ExceptionLoggingMiddleware>();
 
-    app.MapOpenApi();
+    app.MapSwagger("/openapi/{documentName}.json");
     app.MapScalarApiReference();
     app.MapControllers();
 

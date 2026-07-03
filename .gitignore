@@ -3,6 +3,7 @@ docs/specs/
 bin/
 obj/
 .vs/
+.idea/
 *.user
 *.suo
 

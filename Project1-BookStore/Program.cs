@@ -5,7 +5,8 @@ using Scalar.AspNetCore;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
-builder.Services.AddOpenApi();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("Default")));
 
@@ -25,7 +26,7 @@ using (var scope = app.Services.CreateScope())
     }
 }
 
-app.MapOpenApi();
+app.MapSwagger("/openapi/{documentName}.json");
 app.MapScalarApiReference();
 app.MapControllers();
 
