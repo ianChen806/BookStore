@@ -1,6 +1,12 @@
 @Project2_Debug_HostAddress = http://localhost:5282
 
-GET {{Project2_Debug_HostAddress}}/weatherforecast/
-Accept: application/json
+POST {{Project2_Debug_HostAddress}}/member/register
+Content-Type: application/json
+
+{
+  "account": "newbie",
+  "name": "New Bie",
+  "email": "new@example.com"
+}
 
 ###

@@ -1,6 +1,6 @@
 @Project1_BookStore_HostAddress = http://localhost:5022
 
-GET {{Project1_BookStore_HostAddress}}/weatherforecast/
+GET {{Project1_BookStore_HostAddress}}/ping
 Accept: application/json
 
 ###

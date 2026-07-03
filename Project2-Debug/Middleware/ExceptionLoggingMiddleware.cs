@@ -21,6 +21,13 @@ public sealed class ExceptionLoggingMiddleware
         {
             _logger.LogError(ex, "Unhandled exception while processing {Method} {Path}",
                 context.Request.Method, context.Request.Path);
+
+            // 回應已開始寫入(headers 已送出)時無法再改狀態碼,重拋交由 server 處理
+            if (context.Response.HasStarted)
+            {
+                throw;
+            }
+
             context.Response.StatusCode = StatusCodes.Status500InternalServerError;
             await context.Response.WriteAsJsonAsync(new { error = "Internal Server Error" });
         }

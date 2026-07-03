@@ -13,9 +13,9 @@ public class PingController : ControllerBase
     public PingController(AppDbContext db) => _db = db;
 
     [HttpGet]
-    public async Task<IActionResult> Get()
+    public async Task<IActionResult> Get(CancellationToken cancellationToken)
     {
-        var userCount = await _db.Users.CountAsync();
+        var userCount = await _db.Users.CountAsync(cancellationToken);
         return Ok(new { message = "pong", userCount });
     }
 }
