@@ -5,6 +5,8 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <RootNamespace>Project1_BookStore</RootNamespace>
+    <!-- 測試專案為子資料夾,排除其原始碼避免被 Web 專案一併編譯 -->
+    <DefaultItemExcludes>$(DefaultItemExcludes);Project1-BookStore.Tests/**</DefaultItemExcludes>
   </PropertyGroup>
 
   <ItemGroup>
