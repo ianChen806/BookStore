@@ -1,0 +1,70 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build-test-scan:
+    name: Build, Test & Vulnerability Scan
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET 8
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      # 兩個專案彼此獨立、無根 solution,故逐一 restore(.csproj 路徑,不用 .slnx)
+      - name: Restore
+        run: |
+          dotnet restore Project1-BookStore/Project1-BookStore.csproj
+          dotnet restore Project1-BookStore/Project1-BookStore.Tests/Project1-BookStore.Tests.csproj
+          dotnet restore Project2-Debug/Project2-Debug.csproj
+
+      - name: Build Project1-BookStore
+        run: dotnet build Project1-BookStore/Project1-BookStore.csproj -c Release --no-restore
+
+      - name: Build Project2-Debug
+        run: dotnet build Project2-Debug/Project2-Debug.csproj -c Release --no-restore
+
+      # Project2 內含刻意植入的 runtime bug(考題),故 CI 只跑 Project1 的單元測試,
+      # 不觸發 Project2 的 API,以免在 log 洩漏解答。
+      - name: Test (Project1 unit tests)
+        run: dotnet test Project1-BookStore/Project1-BookStore.Tests/Project1-BookStore.Tests.csproj -c Release --no-restore --verbosity normal
+
+      # 漏洞掃描：只報告、不阻斷 CI。結果寫入 job summary 供 review。
+      # 已知殘留：CVE-2025-6965（SQLitePCLRaw/e_sqlite3 的 SQLite native 相依，
+      # 上游尚無修正版，已 pin 至最新 2.1.11）。可信輸入的本地 SQLite，風險已評估可接受。
+      - name: Report vulnerable NuGet packages (non-blocking)
+        shell: bash
+        run: |
+          projects=(
+            "Project1-BookStore/Project1-BookStore.csproj"
+            "Project1-BookStore/Project1-BookStore.Tests/Project1-BookStore.Tests.csproj"
+            "Project2-Debug/Project2-Debug.csproj"
+          )
+          echo "## NuGet vulnerability scan (report-only)" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          for proj in "${projects[@]}"; do
+            echo "::group::$proj"
+            output=$(dotnet list "$proj" package --vulnerable --include-transitive 2>&1 || true)
+            echo "$output"
+            echo "::endgroup::"
+            {
+              echo "<details><summary>$proj</summary>"
+              echo ""
+              echo '```'
+              echo "$output"
+              echo '```'
+              echo "</details>"
+              echo ""
+            } >> "$GITHUB_STEP_SUMMARY"
+          done
+          echo "Vulnerability scan complete (report-only, non-blocking)."

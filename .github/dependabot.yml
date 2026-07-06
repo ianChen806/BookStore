@@ -1,0 +1,26 @@
+version: 2
+updates:
+  # 三個專案各自獨立,Dependabot 需分別指向含 .csproj 的目錄
+  - package-ecosystem: "nuget"
+    directory: "/Project1-BookStore"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5
+
+  - package-ecosystem: "nuget"
+    directory: "/Project1-BookStore/Project1-BookStore.Tests"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5
+
+  - package-ecosystem: "nuget"
+    directory: "/Project2-Debug"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5
+
+  # 追蹤 GitHub Actions 版本(如 checkout / setup-dotnet)
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
