@@ -14,7 +14,7 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.*" />
     <PackageReference Include="Scalar.AspNetCore" Version="2.16.9" />
     <!-- 覆寫 EF Core Sqlite 帶入的漏洞 transitive 版本 (GHSA-2m69-gcr7-jv3q) -->
-    <PackageReference Include="SQLitePCLRaw.bundle_e_sqlite3" Version="2.1.11" />
+    <PackageReference Include="SQLitePCLRaw.bundle_e_sqlite3" Version="3.0.3" />
   </ItemGroup>
 
 </Project>
