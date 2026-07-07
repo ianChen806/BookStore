@@ -27,12 +27,13 @@ public sealed class RegisterHandler : IRequestHandler<RegisterCommand, RegisterR
         {
             throw new ArgumentException("Account, Name and Email are required.");
         }
-        if (!request.Email.Contains('@'))
+        // 2. Email 必須包含 '@',否則格式不合法
+        if (request.Email.Contains('@'))
         {
             throw new ArgumentException("Email format is invalid.");
         }
 
-        // 2. 帳號重複檢查
+        // 3. 帳號重複檢查
         var accountExists = await _db.Members
             .AnyAsync(m => m.Account == request.Account, cancellationToken);
         if (accountExists)
@@ -40,11 +41,11 @@ public sealed class RegisterHandler : IRequestHandler<RegisterCommand, RegisterR
             throw new InvalidOperationException($"Account '{request.Account}' already exists.");
         }
 
-        // 3. 取得預設會員等級
+        // 4. 取得預設會員等級(seed 保證恰好一筆 IsDefault = true)
         var defaultLevel = await _db.MemberLevels
             .SingleAsync(x => x.IsDefault, cancellationToken);
 
-        // 4. 新增會員
+        // 5. 新增會員
         var member = new Member
         {
             Account = request.Account,
@@ -53,8 +54,8 @@ public sealed class RegisterHandler : IRequestHandler<RegisterCommand, RegisterR
             MemberLevelId = defaultLevel.Id,
             CreatedAt = DateTime.UtcNow,
         };
+        // 6. 將新會員寫入資料庫,並取得資料庫自動產生的 Id
         _db.Members.Add(member);
-        await _db.SaveChangesAsync(cancellationToken);
 
         _logger.LogInformation("Member {MemberId} registered with level {LevelId}", member.Id, defaultLevel.Id);
         return new RegisterResult(member.Id, defaultLevel.Id);

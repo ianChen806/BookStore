@@ -23,7 +23,6 @@
 
   <ItemGroup>
     <None Update="nlog.config" CopyToOutputDirectory="PreserveNewest" />
-    <None Update="bookstore.db" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 
 </Project>

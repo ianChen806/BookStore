@@ -1,5 +1,6 @@
 using Mediator;
 using Microsoft.AspNetCore.Mvc;
+using Project2_Debug.Features.Members.List;
 using Project2_Debug.Features.Members.Register;
 
 namespace Project2_Debug.Controllers;
@@ -20,6 +21,13 @@ public class MemberController : ControllerBase
         var result = await _mediator.Send(
             new RegisterCommand(request.Account, request.Name, request.Email),
             cancellationToken);
+        return Ok(result);
+    }
+
+    [HttpGet("list")]
+    public async Task<IActionResult> List(CancellationToken cancellationToken)
+    {
+        var result = await _mediator.Send(new ListMembersQuery(), cancellationToken);
         return Ok(result);
     }
 
