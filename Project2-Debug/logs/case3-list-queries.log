@@ -1,0 +1,51 @@
+2026-07-07 11:08:39.6646|INFO|Microsoft.AspNetCore.Hosting.Diagnostics|Request starting HTTP/1.1 GET http://localhost:5299/member/list - - -
+2026-07-07 11:08:39.6646|INFO|Microsoft.AspNetCore.Routing.EndpointMiddleware|Executing endpoint 'Project2_Debug.Controllers.MemberController.List (Project2-Debug)'
+2026-07-07 11:08:39.6687|INFO|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Route matched with {action = "List", controller = "Member"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] List(System.Threading.CancellationToken) on controller Project2_Debug.Controllers.MemberController (Project2-Debug).
+2026-07-07 11:08:39.6713|INFO|Project2_Debug.Features.Members.List.ListMembersHandler|Listing all members
+2026-07-07 11:08:39.7087|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT "m"."Id", "m"."Account", "m"."CreatedAt", "m"."Email", "m"."MemberLevelId", "m"."Name"
+FROM "Members" AS "m"
+2026-07-07 11:08:39.7132|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (0ms) [Parameters=[@__member_MemberLevelId_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT "m"."Id", "m"."IsDefault", "m"."Name"
+FROM "MemberLevels" AS "m"
+WHERE "m"."Id" = @__member_MemberLevelId_0
+LIMIT 1
+2026-07-07 11:08:39.7180|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (0ms) [Parameters=[@__member_MemberLevelId_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT "m"."Id", "m"."IsDefault", "m"."Name"
+FROM "MemberLevels" AS "m"
+WHERE "m"."Id" = @__member_MemberLevelId_0
+LIMIT 1
+2026-07-07 11:08:39.7180|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (0ms) [Parameters=[@__member_MemberLevelId_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT "m"."Id", "m"."IsDefault", "m"."Name"
+FROM "MemberLevels" AS "m"
+WHERE "m"."Id" = @__member_MemberLevelId_0
+LIMIT 1
+2026-07-07 11:08:39.7194|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (0ms) [Parameters=[@__member_MemberLevelId_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT "m"."Id", "m"."IsDefault", "m"."Name"
+FROM "MemberLevels" AS "m"
+WHERE "m"."Id" = @__member_MemberLevelId_0
+LIMIT 1
+2026-07-07 11:08:39.7194|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (0ms) [Parameters=[@__member_MemberLevelId_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT "m"."Id", "m"."IsDefault", "m"."Name"
+FROM "MemberLevels" AS "m"
+WHERE "m"."Id" = @__member_MemberLevelId_0
+LIMIT 1
+2026-07-07 11:08:39.7194|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (0ms) [Parameters=[@__member_MemberLevelId_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT "m"."Id", "m"."IsDefault", "m"."Name"
+FROM "MemberLevels" AS "m"
+WHERE "m"."Id" = @__member_MemberLevelId_0
+LIMIT 1
+2026-07-07 11:08:39.7194|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (0ms) [Parameters=[@__member_MemberLevelId_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT "m"."Id", "m"."IsDefault", "m"."Name"
+FROM "MemberLevels" AS "m"
+WHERE "m"."Id" = @__member_MemberLevelId_0
+LIMIT 1
+2026-07-07 11:08:39.7194|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (0ms) [Parameters=[@__member_MemberLevelId_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT "m"."Id", "m"."IsDefault", "m"."Name"
+FROM "MemberLevels" AS "m"
+WHERE "m"."Id" = @__member_MemberLevelId_0
+LIMIT 1
+2026-07-07 11:08:39.7194|INFO|Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor|Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[Project2_Debug.Features.Members.List.MemberListItem, Project2-Debug, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-07-07 11:08:39.7269|INFO|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Executed action Project2_Debug.Controllers.MemberController.List (Project2-Debug) in 57.942ms
+2026-07-07 11:08:39.7270|INFO|Microsoft.AspNetCore.Routing.EndpointMiddleware|Executed endpoint 'Project2_Debug.Controllers.MemberController.List (Project2-Debug)'
+2026-07-07 11:08:39.7270|INFO|Microsoft.AspNetCore.Hosting.Diagnostics|Request finished HTTP/1.1 GET http://localhost:5299/member/list - 200 - application/json;+charset=utf-8 62.6601ms
